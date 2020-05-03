@@ -7,17 +7,21 @@ impl VM{
         self.stack.pop().unwrap()
     }
 
+    pub fn push(&mut self, value: i32){
+        self.stack.push(value);
+    }
+
     pub fn run(&mut self, program: Vec<Opcode>){
         for code in program {
             match code{
                 Opcode::Push(x) => self.stack.push(x),
                 Opcode::Add => {
                     let result = self.pop() + self.pop();
-                    self.stack.push(result);
+                    self.push(result);
                 }
                 Opcode::Sub => {
                     let result = self.pop() - self.pop();
-                    self.stack.push(result);
+                    self.push(result);
                 }
                 Opcode::Print => println!("{}", self.stack.last().unwrap())
             }
